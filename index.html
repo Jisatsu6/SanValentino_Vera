@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buon San Valentino 💜</title>
+<title> 💜Valentine's day💜 </title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -177,7 +177,7 @@ html, body {
 <div id="content">
     <div class="main-card">
         <div class="intro">
-            <h2>Buon San Valentino!</h2>
+            <h2>Buon San Valentino my love 🌈💕💜</h2>
             <p>Eccoci qui, San Valentino ed è la prima volta che faccio un regalo ad una ragazza in questo giorno,</p>
             <p>Alla fine San Valentino è solo un pretesto per farti qualcosa di carino e mostrarti quello che provo per te :)</p>
             <p>Sempre più felice di stare con te, sei la mia piccola principessa meowwwww :3</p>
@@ -189,8 +189,8 @@ html, body {
                 <div class="aura" id="aura"></div>
                 <img src="AmoreGalar.png" class="ponyta" id="ponyta">
             </div>
-            <button class="magic-btn" id="magicBtn">💜☆💜☆💜☆💜</button>
-            <div class="message-box"> <p style=font-weight:300;> Ti amo.</p></div>
+            <button class="magic-btn" id="magicBtn">💜☆💜CAVALLINO☆💜☆💜</button>
+            <div class="message-box"> <p style=font-weight:300;> Ti amo 🦄</p></div>
         </div>
     </div>
 </div>
@@ -255,6 +255,30 @@ function createRain(){
 }
 
 setInterval(createRain, 300);
+</script>
+
+<script>
+    const ponytaImg = document.getElementById('ponyta');
+let evolved = false;
+
+ponytaImg.addEventListener('dblclick', () => {
+    if (!evolved) {
+        ponytaImg.src = 'Rapidash.png';
+    } else {
+        ponytaImg.src = 'AmoreGalar.png';
+    }
+    evolved = !evolved;
+
+    ponytaImg.style.transform = 'scale(1.2)';
+    setTimeout(() => {
+        ponytaImg.style.transform = 'scale(1)';
+    }, 300);
+
+    aura.classList.remove('show');
+    void aura.offsetWidth;
+    aura.classList.add('show');
+});
+
 </script>
 
 </body>
