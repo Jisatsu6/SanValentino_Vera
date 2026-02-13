@@ -34,7 +34,11 @@ body{
     align-items:center;
     justify-content:center;
     overflow:hidden;
+    min-height:100vh;
     position:relative;
+}
+html, body {
+    overflow-x:hidden;
 }
 
 /* ---------------- GATE ---------------- */
@@ -77,7 +81,7 @@ body{
 .visual::before{content:'';position:absolute;inset:0;background:url('background.png') center/cover no-repeat;opacity:0.18;z-index:0;}
 .visual > *{position:relative;z-index:1;}
 .ponyta-wrap{position:relative;}
-.ponyta{width:180px;transition:transform 0.4s ease;filter:drop-shadow(0 12px 25px rgba(71,0,106,0.25));}
+.ponyta{width:180px;max-width:100%;height:auto;transition:transform 0.4s ease;filter:drop-shadow(0 12px 25px rgba(71,0,106,0.25));}
 
 /* -------- Manifestazione magica -------- */
 .aura{
@@ -120,14 +124,49 @@ body{
     opacity:0;
     animation:sparkleAnim 2.5s ease-out forwards;
 }
+#sparkle-layer{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:9999;
+}
+
 @keyframes sparkleAnim{
     0%{opacity:1;transform:translate(0,0) scale(0.5);}
     50%{opacity:1;transform:translate(var(--dx),var(--dy)) scale(1.2);}
     100%{opacity:0;transform:translate(calc(var(--dx)*1.5),calc(var(--dy)*1.5)) scale(0.5);}
 }
+/* ---------------- PIOGGIA MAGICA ---------------- */
+
+#rain-layer{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+}
+
+.rain-item{
+    position:absolute;
+    top:-40px;
+    font-size:20px;
+    animation:fall linear forwards;
+    opacity:0.9;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0.7;
+    }
+}
+
 </style>
 </head>
 <body>
+<div id="sparkle-layer"></div>
+<div id="rain-layer"></div>
 
 <div id="gate">
     <h1>💜 Just the two of us 💜</h1>
@@ -171,17 +210,17 @@ magicBtn.addEventListener('click',()=>{
 
     // Glitter arcobaleno e polvere fatata OVUNQUE
     const colors = ['#FF33CC','#7F00FF','#FFFFFF','#FFEE33','#33FFDD','#FF77FF','#33FF77','#7733FF'];
-    for(let i=0;i<120;i++){
+    for(let i=0;i<40;i++){
         const sparkle = document.createElement('div');
         sparkle.classList.add('sparkle');
         sparkle.style.left=Math.random()*100+'%';
         sparkle.style.top=Math.random()*100+'%';
         const color=colors[Math.floor(Math.random()*colors.length)];
         sparkle.style.background=color;
-        sparkle.style.boxShadow=`0 0 8px ${color},0 0 16px ${color},0 0 24px ${color}`;
+    sparkle.style.boxShadow=`0 0 8px ${color}`;
         sparkle.style.setProperty('--dx',(Math.random()*200-100)+'px');
         sparkle.style.setProperty('--dy',(Math.random()*-200-100)+'px');
-        document.body.appendChild(sparkle);
+    document.getElementById('sparkle-layer').appendChild(sparkle);
         setTimeout(()=>sparkle.remove(),3000+Math.random()*2000);
     }
 });
@@ -196,6 +235,26 @@ function check(){
         document.getElementById("content").style.display="block";
     }else{alert("Non sai scrivereeeeeee");}
 }
+</script>
+<script>
+const rainLayer = document.getElementById("rain-layer");
+
+function createRain(){
+    const items = ["🌈","⭐","✨","💜","🦄","🐎","🩷","💕"];
+    const el = document.createElement("div");
+    el.classList.add("rain-item");
+    el.innerText = items[Math.floor(Math.random()*items.length)];
+
+    el.style.left = Math.random()*100 + "vw";
+    el.style.fontSize = (Math.random()*20 + 16) + "px";
+    el.style.animationDuration = (Math.random()*5 + 4) + "s";
+
+    rainLayer.appendChild(el);
+
+    setTimeout(()=>{ el.remove(); },9000);
+}
+
+setInterval(createRain, 300);
 </script>
 
 </body>
